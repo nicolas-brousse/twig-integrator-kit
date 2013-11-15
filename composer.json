@@ -15,11 +15,18 @@
         "php": ">=5.3.3",
 
         "silex/silex": "~1.1",
+        "mheap/Silex-Assetic": "~1.0",
         "twig/twig": ">=1.8,<2.0-dev",
         "symfony/twig-bridge": "~2.3",
+        "symfony/filesystem": "~2.3",
 
         "leafo/scssphp": "dev-master",
         "leafo/scssphp-compass": "dev-master"
+    },
+
+    "scripts": {
+        "post-install-cmd": "TwigIntegratorKit\\Composer\\Script::install",
+        "post-update-cmd": "TwigIntegratorKit\\Composer\\Script::install"
     },
 
     "autoload": {
