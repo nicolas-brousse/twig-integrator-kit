@@ -2,11 +2,14 @@
 
 namespace TwigIntegratorKit;
 
+use Assetic;
+
 use scssc;
 use scss_compass;
 
 use Silex;
 use Silex\Application as BaseApplication;
+use SilexAssetic;
 
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\HttpFoundation\Response;
@@ -18,9 +21,10 @@ class Application extends BaseApplication
         parent::__construct($values);
 
         $this['debug']    = true;
-        $this['root_dir'] = __DIR__ . '/../../';
+        $this['root_dir'] = realpath(__DIR__ . '/../../');
 
         $this->registerTwig();
+        $this->registerAssetic();
         $this->defineRoutes();
     }
 
@@ -28,31 +32,40 @@ class Application extends BaseApplication
     {
         $app = $this;
 
-        // Route for files .scss
-        $this->get('assets/{filename}', function($filename) use ($app) {
+        // Route for views
+        $this->get('{path}', function($path) use ($app) {
+            $path = trim($path, '/');
 
-            $filepath = $app['root_dir'] . '/integration/public/' . $filename;
-
-            // Check if file exists
-            if (! file_exists($filepath)) {
-                throw new NotFoundHttpException(sprintf("Scss file '%s' not found", basename($filepath)));
+            if (empty($path)) {
+                $path = 'index';
             }
 
-            $scss = new scssc();
-            new scss_compass($scss);
-            return new Response($scss->compile(file_get_contents($filepath)), 200, array(
-                'Content-Type' => 'text/css',
-            ));
+            return $app['twig']->render($path . '.html.twig');
         })
-        ->assert('filename', '.*\.scss$');
+        ->assert('path', '.*');
+    }
 
-        // Route for views
-        $this->get('/', function() use ($app) {
-            return $app['twig']->render('index.html.twig');
-        });
+    private function registerAssetic()
+    {
+        $this->register(new SilexAssetic\AsseticServiceProvider(), array(
+            'assetic.options' => array(
+                'debug'            => $this['debug'],
+                'auto_dump_assets' => $this['debug'],
+            ),
+        ));
 
-        // Route for public
+        $this['assetic.path_to_source'] = $this['root_dir'] . '/integration/public';
+        $this['assetic.path_to_web']    = $this['root_dir'] . '/web';
 
+        $this['assetic.filter_manager'] = $this->share(
+            $this->extend('assetic.filter_manager', function($fm, $app) {
+                $f = new Assetic\Filter\ScssphpFilter();
+                $f->enableCompass();
+                $fm->set('scssphp', $f);
+
+                return $fm;
+            })
+        );
     }
 
     private function registerTwig()
