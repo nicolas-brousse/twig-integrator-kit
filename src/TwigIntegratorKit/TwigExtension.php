@@ -40,13 +40,21 @@ class TwigExtension extends \Twig_Extension
     {
         return array(
             'asset' => new Twig_Function_Method($this, 'getAssetPath', array()),
+            'path'  => new Twig_Function_Method($this, 'getPath', array()),
         );
     }
 
     public function getAssetPath($path) {
+        return sprintf('%s/assets/%s',
+            $this->app['request']->getBaseUrl(),
+            ltrim($path, '/')
+        );
+    }
+
+    public function getPath($path) {
         return sprintf('%s/%s',
             $this->app['request']->getBaseUrl(),
-            ltrim($path, '/assets/')
+            ltrim($path, '/')
         );
     }
 
