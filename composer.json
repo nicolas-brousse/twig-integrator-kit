@@ -12,12 +12,14 @@
     ],
 
     "require": {
-        "leafo/scssphp": "dev-master",
-        "leafo/scssphp-compass": "dev-master",
+        "php": ">=5.3.3",
 
         "silex/silex": "~1.1",
         "twig/twig": ">=1.8,<2.0-dev",
-        "symfony/twig-bridge": "~2.3"
+        "symfony/twig-bridge": "~2.3",
+
+        "leafo/scssphp": "dev-master",
+        "leafo/scssphp-compass": "dev-master"
     },
 
     "autoload": {
