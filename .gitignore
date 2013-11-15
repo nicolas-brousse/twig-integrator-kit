@@ -1,3 +1,8 @@
 .DS_Store
 
 /vendor
+/web/assets
+/web/css/*
+/web/js/*
+!/web/css/.keep
+!/web/js/.keep
