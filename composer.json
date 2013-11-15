@@ -1,0 +1,28 @@
+{
+    "name": "nicolas-brousse/twig-integrator-kit",
+    "description": "A minimalist application to make integration with twig",
+    "license": "MIT",
+    "type": "project",
+
+    "authors": [
+        {
+            "name": "Nicolas Brousse",
+            "email": "pro@nicolas-brousse.fr"
+        }
+    ],
+
+    "require": {
+        "leafo/scssphp": "dev-master",
+        "leafo/scssphp-compass": "dev-master",
+
+        "silex/silex": "~1.1",
+        "twig/twig": ">=1.8,<2.0-dev",
+        "symfony/twig-bridge": "~2.3"
+    },
+
+    "autoload": {
+        "psr-0": {
+            "": "src/"
+        }
+    }
+}
