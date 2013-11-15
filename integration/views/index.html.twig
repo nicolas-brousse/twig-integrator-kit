@@ -1,2 +1,19 @@
 {% extends 'layout.html.twig' %}
 
+{% block title 'Homepage' %}
+
+{% block content %}
+
+<h2>What is used?</h2>
+
+<ul>
+    <li>Silex</li>
+    <li>Assetics</li>
+    <li>Twig</li>
+</ul>
+
+<p><a href="{{ path('about') }}">About</a></p>
+
+<img src="{{ asset('images/silex_logo.png') }}" alt="">
+
+{% endblock %}

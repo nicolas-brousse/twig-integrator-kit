@@ -1,9 +1,28 @@
 {% extends 'base.html.twig' %}
 
 {% block stylesheets %}
-    <link rel="stylesheet" href="{{ asset('scss/app.scss') }}">
+    {% stylesheets
+        'css/*.css'
+        'scss/*.scss'
+        filter='scssphp'
+    %}
+        <link rel="stylesheet" type="text/css" media="screen" href="{{ asset_url }}"/>
+    {% endstylesheets %}
+{% endblock %}
+
+{% block javascripts %}
+    <script type="text/javascripts" src="//code.jquery.com/jquery-1.10.2.min.js"></script>
+    {% javascripts
+        'js/*.js'
+    %}
+        <script type="text/javascript" src="{{ asset_url }}"></script>
+    {% endjavascripts %}
 {% endblock %}
 
 {% block body %}
-    <h1>Hey oh</h1>
+    <h1><a href="{{ path('/') }}">Twig integrator kit</a></h1>
+
+    <div class="content">
+        {% block content %}{% endblock %}
+    </div>
 {% endblock %}
