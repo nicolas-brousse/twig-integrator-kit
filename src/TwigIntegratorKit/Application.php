@@ -8,14 +8,13 @@ use Silex;
 use Silex\Application as BaseApplication;
 use SilexAssetic;
 
-use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
-use Symfony\Component\HttpFoundation\Response;
+use TwigIntegratorKit\Assetic\Filter\CoffeephpFilter;
 
 class Application extends BaseApplication
 {
     /**
      * Construct.
-     * 
+     *
      * @param array $values The parameters or objects.
      */
     public function __construct(array $values = array())
@@ -71,6 +70,7 @@ class Application extends BaseApplication
                 $fm->set('scssphp', $f);
 
                 $fm->set('lessphp',   new Assetic\Filter\LessphpFilter());
+                $fm->set('coffeephp', new CoffeephpFilter());
 
                 return $fm;
             })
