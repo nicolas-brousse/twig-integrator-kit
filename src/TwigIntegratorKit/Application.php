@@ -4,9 +4,6 @@ namespace TwigIntegratorKit;
 
 use Assetic;
 
-use scssc;
-use scss_compass;
-
 use Silex;
 use Silex\Application as BaseApplication;
 use SilexAssetic;
@@ -16,6 +13,11 @@ use Symfony\Component\HttpFoundation\Response;
 
 class Application extends BaseApplication
 {
+    /**
+     * Construct.
+     * 
+     * @param array $values The parameters or objects.
+     */
     public function __construct(array $values = array())
     {
         parent::__construct($values);
@@ -28,11 +30,13 @@ class Application extends BaseApplication
         $this->defineRoutes();
     }
 
+    /**
+     * Define routes for this application
+     */
     private function defineRoutes()
     {
         $app = $this;
 
-        // Route for views
         $this->get('{path}', function($path) use ($app) {
             $path = trim($path, '/');
 
@@ -45,6 +49,9 @@ class Application extends BaseApplication
         ->assert('path', '.*');
     }
 
+    /**
+     * Register the Assetic provider
+     */
     private function registerAssetic()
     {
         $this->register(new SilexAssetic\AsseticServiceProvider(), array(
@@ -68,6 +75,9 @@ class Application extends BaseApplication
         );
     }
 
+    /**
+     * Register the Twig provider
+     */
     private function registerTwig()
     {
         $this->register(new Silex\Provider\TwigServiceProvider(), array(
