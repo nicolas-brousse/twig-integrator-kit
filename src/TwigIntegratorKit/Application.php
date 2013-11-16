@@ -87,6 +87,9 @@ class Application extends BaseApplication
                 __DIR__ . '/Resources/views',
                 $this['root_dir'] . '/integration/views',
             ),
+            'twig.options' => array(
+                'cache' => $this['root_dir'] . '/web/cache/twig',
+            ),
         ));
 
         $this['twig'] = $this->share($this->extend('twig', function($twig, $app) {
