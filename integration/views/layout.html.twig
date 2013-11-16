@@ -1,13 +1,22 @@
 {% extends 'base.html.twig' %}
 
 {% block stylesheets %}
+    {# SCSS + Compass #}
     {% stylesheets
         'css/*.css'
-        'scss/*.scss'
+        'css/*.scss'
         filter='scssphp'
     %}
         <link rel="stylesheet" type="text/css" media="screen" href="{{ asset_url }}"/>
     {% endstylesheets %}
+
+    {# LESS #}
+    {#% stylesheets
+        'css/*.less'
+        filter='lessphp'
+    %}
+        <link rel="stylesheet" type="text/css" media="screen" href="{{ asset_url }}"/>
+    {% endstylesheets %#}
 {% endblock %}
 
 {% block javascripts %}

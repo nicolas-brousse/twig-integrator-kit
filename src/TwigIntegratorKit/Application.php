@@ -70,6 +70,8 @@ class Application extends BaseApplication
                 $f->enableCompass();
                 $fm->set('scssphp', $f);
 
+                $fm->set('lessphp',   new Assetic\Filter\LessphpFilter());
+
                 return $fm;
             })
         );
