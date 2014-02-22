@@ -84,8 +84,9 @@ class Application extends BaseApplication
     {
         $this->register(new Silex\Provider\TwigServiceProvider(), array(
             'twig.path' => array(
-                __DIR__ . '/Resources/views',
+                $this['root_dir'] . '/app/Resources/views',
                 $this['root_dir'] . '/integration/views',
+                // Replace previous line by $this['root_dir'] . '/integration/Resources/views',
             ),
             'twig.options' => array(
                 'cache' => $this['root_dir'] . '/web/cache/twig',
