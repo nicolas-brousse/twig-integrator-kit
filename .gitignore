@@ -1,10 +1,9 @@
 .DS_Store
 
 /vendor
-/web/assets
+/app/cache/*
+!/app/cache/.keep
 /web/css/*
 /web/js/*
-/web/cache/*
 !/web/css/.keep
 !/web/js/.keep
-!/web/cache/.keep
