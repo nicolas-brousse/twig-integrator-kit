@@ -9,6 +9,7 @@ use Silex\Application as BaseApplication;
 use SilexAssetic;
 
 use TwigIntegratorKit\Assetic\Filter\CoffeephpFilter;
+use TwigIntegratorKit\Composer\Script;
 
 class Application extends BaseApplication
 {
@@ -24,9 +25,15 @@ class Application extends BaseApplication
         $this['debug']    = true;
         $this['root_dir'] = realpath(__DIR__ . '/../../');
 
+        $this->init();
         $this->registerTwig();
         $this->registerAssetic();
         $this->defineRoutes();
+    }
+
+    private function init()
+    {
+        Script::install();
     }
 
     /**
@@ -69,8 +76,9 @@ class Application extends BaseApplication
                 $f->enableCompass();
                 $fm->set('scssphp', $f);
 
-                $fm->set('lessphp',   new Assetic\Filter\LessphpFilter());
-                $fm->set('coffeephp', new CoffeephpFilter());
+                $fm->set('cssrewrite', new Assetic\Filter\CssRewriteFilter());
+                $fm->set('lessphp',    new Assetic\Filter\LessphpFilter());
+                $fm->set('coffeephp',  new CoffeephpFilter());
 
                 return $fm;
             })
@@ -89,7 +97,7 @@ class Application extends BaseApplication
                 // Replace previous line by $this['root_dir'] . '/integration/Resources/views',
             ),
             'twig.options' => array(
-                'cache' => $this['root_dir'] . '/web/cache/twig',
+                'cache' => $this['root_dir'] . '/app/cache/twig',
             ),
         ));
 
