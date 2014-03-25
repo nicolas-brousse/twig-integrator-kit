@@ -65,6 +65,6 @@ class TwigExtension extends \Twig_Extension
      */
     public function getName()
     {
-        return '';
+        return 'twig_integrator_kit';
     }
 }
