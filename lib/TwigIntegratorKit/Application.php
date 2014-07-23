@@ -33,7 +33,7 @@ class Application extends BaseApplication
 
     private function init()
     {
-        Script::install();
+        // Script::install();
     }
 
     /**
