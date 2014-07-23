@@ -14,11 +14,11 @@
     "require": {
         "php": ">=5.3.3",
 
-        "silex/silex": "~1.1",
+        "silex/silex": "~1.2",
         "mheap/Silex-Assetic": "~1.0",
         "twig/twig": ">=1.8,<2.0-dev",
-        "symfony/twig-bridge": "~2.3",
-        "symfony/filesystem": "~2.3",
+        "symfony/twig-bridge": "~2.5",
+        "symfony/filesystem": "~2.5",
 
         "leafo/scssphp": "dev-master",
         "leafo/scssphp-compass": "dev-master",
