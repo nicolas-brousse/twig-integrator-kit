@@ -9,9 +9,14 @@ use Symfony\Component\Finder\Finder;
 
 class Script
 {
-    public static function install(Event $event)
+    protected static $io;
+
+    public static function install($event=null)
     {
-        $io  = $event->getIO();
+        if ($event instanceof Event) {
+            self::$io = $event->getIO();
+        }
+
         $dir = realpath(__DIR__ . '/../../../');
 
         $filesystem = new Filesystem();
@@ -21,10 +26,8 @@ class Script
         self::chmod($dir . '/web/js', 0777);
         self::chmod($dir . '/app/cache', 0777);
 
-        $io->write('<info>Update twig-integrator web/* chmod</info>');
+        self::write('<info>Update twig-integrator web/* chmod</info>');
 
-        // Temporary Fix
-        // TODO: choose between /assets symlink or /assets/* symlinks
         self::symlink($dir . '/integration/public', $dir . '/web/assets');
 
         $finder->directories()
@@ -38,10 +41,10 @@ class Script
             self::symlink($file->getRealpath(), $dir . '/web/' . $file->getRelativePathname());
         }
 
-        $io->write('<info>Generate twig-integrator symlinks</info>');
+        self::write('<info>Generate twig-integrator symlinks</info>');
     }
 
-    private static function chmod($dir, $mode)
+    protected static function chmod($dir, $mode)
     {
         $filesystem = new Filesystem();
 
@@ -51,7 +54,7 @@ class Script
         catch (\Exception $e) {}
     }
 
-    private static function symlink($origin, $target)
+    protected static function symlink($origin, $target)
     {
         $filesystem = new Filesystem();
 
@@ -59,5 +62,14 @@ class Script
             $filesystem->symlink($origin, $target);
         }
         catch (\Exception $e) {}
+    }
+
+    protected static function write($string)
+    {
+        if (self::$io === null) {
+            return;
+        }
+
+        self::$io->write($string);
     }
 }
