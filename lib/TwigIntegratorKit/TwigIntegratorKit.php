@@ -4,5 +4,5 @@ namespace TwigIntegratorKit;
 
 class TwigIntegratorKit
 {
-    const VERSION = '0.1.5-dev';
+    const VERSION = '0.1.5';
 }
